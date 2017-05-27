@@ -10,7 +10,14 @@ var path    = require("path");
 var mongoose = require('mongoose');
 var model = require('./model');
 
-mongoose.connect('mongodb://kairopy:35961626blasm@ds155191.mlab.com:55191/example-kairopy');
+
+var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };       
+ 
+var mongodbUri = 'mongodb://kairopy:35961626blasm@ds155191.mlab.com:55191/example-kairopy';
+ 
+mongoose.connect(mongodbUri, options);
+
 mongoose.Promise = global.Promise;
 
 var db = mongoose.connection;
